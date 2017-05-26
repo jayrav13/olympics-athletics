@@ -3,6 +3,7 @@ from lxml import html
 import requests
 import json
 import csv
+import sys
 
 def floatify(num):
 	try:
@@ -69,9 +70,7 @@ import codecs
 
 # Write CSV
 f = codecs.open("results.csv", "a+", "utf-8")
-writer = csv.writer(f, delimiter=",", quotechar="\"", quoting=csv.QUOTE_ALL)
-
-import sys
+f.write("Gender,Event,Location,Year,Medal,Name,Nationality,Result\n")
 
 for event in events:
 
@@ -79,7 +78,7 @@ for event in events:
 
 		for result in game["results"]:
 
-			f.write( "\t".join([event["gender"], event["name"].encode("utf-8").strip(), game["location"], str(game["year"]), result["medal"], result["name"] or "null", result["nationality"], str(result["result"]) or "null"]) + "\n")
+			f.write( ",".join([event["gender"], event["name"].encode("utf-8").strip(), game["location"], str(game["year"]), result["medal"], result["name"] or "null", result["nationality"], str(result["result"]) or "null"]) + "\n")
 
 			# sys.exit()
 			# print(",".join[ event["gender"], event["name"], event["url"], game["location"], game["year"], result["medal"], result["name"], result["nationality"], result["result"] ])
